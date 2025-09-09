@@ -23,6 +23,17 @@ async function createJob(payload) {
   return j;
 }
 
+async function deleteJob(jobId) {
+  const r = await fetch("../api/company/delete_job.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ job_id: jobId }),
+  });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.error || "Delete failed");
+  return j;
+}
+
 async function getApplicants(jobId) {
   const r = await fetch(
     "../api/company/applicants.php?job_id=" + encodeURIComponent(jobId)
@@ -105,6 +116,9 @@ function jobCard(j) {
     </div>
     <div class="desc">${escapeHtml(j.description)}</div>
     <div class="row" style="gap:.5rem; margin-top:.5rem;">
+      <button class="btn danger" data-action="delete" data-id="${
+        j.id
+      }">Delete</button>
       <button class="btn" data-action="view" data-id="${
         j.id
       }">View Applicants</button>
@@ -135,6 +149,17 @@ function jobCard(j) {
         box.innerHTML = `<div class="alert error">${escapeHtml(
           e.message
         )}</div>`;
+      }
+    });
+  root
+    .querySelector("[data-action=delete]")
+    .addEventListener("click", async () => {
+      if (!confirm("Delete this job? This cannot be undone.")) return;
+      try {
+        await deleteJob(j.id);
+        root.remove(); // remove the card from the UI
+      } catch (e) {
+        alert(e.message);
       }
     });
   return root;
