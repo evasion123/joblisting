@@ -28,6 +28,11 @@
   <main class="container">
     <h1>Open Positions</h1>
     <p class="muted">Browse current openings. You must be logged in to apply.</p>
+<div class="row" style="gap:.5rem; align-items:center; margin:.5rem 0 0.5rem;">
+  <label class="muted">Category
+    <select id="category-filter" style="margin-left:.5rem; min-width:220px;"></select>
+  </label>
+</div>
 
     <div id="jobs" class="grid"></div>
   </main>
