@@ -33,13 +33,25 @@ function jobCard(job) {
       job.id
     }">Apply</button>
   `;
+
   const btn = div.querySelector(".apply-btn");
+
+  // Not logged in -> disabled
   if (!window.IS_LOGGED_IN) {
     btn.setAttribute("disabled", "disabled");
     btn.title = "Please login to apply";
+    return div;
+  }
+
+  // Logged in: if already applied, mark & disable
+  if (Number(job.has_applied) === 1) {
+    btn.textContent = "Applied ✓";
+    btn.classList.add("applied");
+    btn.setAttribute("disabled", "disabled");
   } else {
     btn.addEventListener("click", () => apply(job.id, btn));
   }
+
   return div;
 }
 
@@ -56,7 +68,11 @@ async function apply(jobId, button) {
     });
     const data = await res.json();
     if (!res.ok || !data.ok) throw new Error(data.error || "Apply failed");
+
+    // reflect applied state immediately
     button.textContent = "Applied ✓";
+    button.classList.add("applied");
+    button.disabled = true;
   } catch (e) {
     alert(e.message);
     button.disabled = false;
