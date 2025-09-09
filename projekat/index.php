@@ -14,8 +14,10 @@
       <nav>
         <?php if (isset($_SESSION['user'])): ?>
           <span class="hello">Hi, <?php echo htmlspecialchars($_SESSION['user']['name']); ?></span>
+          <a class="btn" href="profile.php">Profile</a>
           <a class="btn" href="logout.php">Logout</a>
         <?php else: ?>
+          <a class="btn" href="admin/login.php">Admin</a>
           <a class="btn" href="company/login.php">Company Login</a>
           <a class="btn primary" href="company/register.php">Company Register</a>
           <a class="btn" href="login.php">Login</a>

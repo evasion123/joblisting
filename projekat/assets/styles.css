@@ -149,6 +149,7 @@ input {
   color: var(--text);
   border: 1px solid var(--border);
 }
+
 .alert {
   padding: 0.8rem 1rem;
   border-radius: 10px;
