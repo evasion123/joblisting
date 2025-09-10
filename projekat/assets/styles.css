@@ -164,3 +164,254 @@ input {
   margin-right: 0.5rem;
   color: var(--muted);
 }
+/* ============================== responsiveness ============================== */
+
+/* ========== Root & Reset ========== */
+:root {
+  --container: 1100px;
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --border: #263241; /* match your theme */
+  --card: #0f1720; /* match your theme */
+  --muted: #8aa0b2;
+  --radius: 14px;
+
+  /* breakpoints */
+  --sm: 480px;
+  --md: 640px;
+  --lg: 768px;
+  --xl: 1024px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+/* ========== Layout helpers ========== */
+.container {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding: 0 var(--space-3);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+.row.between {
+  justify-content: space-between;
+}
+.row.center {
+  align-items: center;
+}
+.row.wrap {
+  flex-wrap: wrap;
+}
+
+/* stack rows automatically on small screens */
+@media (max-width: 680px) {
+  .row {
+    flex-wrap: wrap;
+  }
+}
+
+/* responsive grid for cards/lists */
+.grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* ========== Header & Nav ========== */
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap; /* allow brand and nav to wrap on small screens */
+}
+
+.brand {
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 22px);
+  white-space: nowrap;
+}
+
+/* ========== Cards & Utilities ========== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+
+.title {
+  font-weight: 600;
+  font-size: clamp(16px, 1.8vw, 20px);
+}
+.desc {
+  line-height: 1.55;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.4rem 0 0.6rem;
+}
+.tag {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.85em;
+  color: var(--muted);
+}
+.muted {
+  color: var(--muted);
+}
+.alert {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+}
+.alert.error {
+  border: 1px solid #5a2a2a;
+  background: #2a1414;
+  color: #ffd7d7;
+}
+.alert.success {
+  border: 1px solid #2a5a2a;
+  background: #142a14;
+  color: #d7ffd7;
+}
+
+/* ========== Forms ========== */
+form label {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+}
+textarea {
+  resize: vertical;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn.block {
+  width: 100%;
+}
+.btn.danger {
+  background: #2a1414;
+  border-color: #5a2a2a;
+  color: #ffd7d7;
+}
+
+/* make form layouts breathe on small screens */
+@media (min-width: var(--md)) {
+  form .row {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ========== Tables (admin) ========== */
+/* Wrap tables so they scroll horizontally on small screens */
+.table-responsive {
+  overflow-x: auto;
+}
+.table-responsive table {
+  min-width: 720px;
+} /* allow scroll instead of squishing */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem;
+  vertical-align: top;
+}
+th {
+  text-align: left;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ========== Modals ========== */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: var(--space-3);
+}
+.modal.open {
+  display: flex;
+}
+.modal .inner {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  width: min(720px, 92%);
+}
+
+/* ========== Typography ========== */
+h1 {
+  font-size: clamp(22px, 3vw, 28px);
+  margin: 0.2rem 0 0.6rem;
+}
+h2 {
+  font-size: clamp(18px, 2.4vw, 22px);
+  margin: 0.2rem 0 0.6rem;
+}
+h3 {
+  font-size: clamp(16px, 2vw, 18px);
+}
+
+/* ========== Helpers ========== */
+.break-any {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.hidden {
+  display: none !important;
+}

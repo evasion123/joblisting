@@ -38,6 +38,8 @@ if (!isset($_SESSION['admin'])) { header('Location: /projekat/admin/login.php');
 
   <div class="toolbar">
     <button class="btn primary" id="newBtn">+ New Listing</button>
+    <button class="btn" id="manageCatsBtn">Manage Categories</button>
+
     <label class="muted">Category
       <select id="filterCategory" style="margin-left:.4rem;"></select>
     </label>
@@ -45,7 +47,7 @@ if (!isset($_SESSION['admin'])) { header('Location: /projekat/admin/login.php');
     <button class="btn" id="refreshBtn">Refresh</button>
   </div>
 
-  <div class="card" id="tableWrap">
+  <div class="card table-responsive" id="tableWrap">
     <table>
       <thead>
         <tr>
@@ -94,6 +96,29 @@ if (!isset($_SESSION['admin'])) { header('Location: /projekat/admin/login.php');
     </form>
   </div>
 </div>
+
+<!-- Categories modal -->
+<div class="modal" id="catsModal" role="dialog" aria-modal="true">
+  <div class="inner">
+    <h2 style="margin-top:0;">Manage Categories</h2>
+
+    <form id="catForm" class="row" style="gap:.6rem; flex-wrap:wrap; margin-bottom:.75rem;">
+      <label style="flex:1 1 280px;">New category name
+        <input type="text" name="name" placeholder="e.g. Engineering" required maxlength="120">
+      </label>
+      <button class="btn primary" type="submit">Add</button>
+      <button class="btn" type="button" id="catCloseBtn" style="margin-left:auto;">Close</button>
+    </form>
+
+    <div class="card">
+      <div id="catsList" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));"></div>
+      <p class="muted" style="margin-top:.5rem;">
+        Note: You can’t delete a category that is used by any job listing.
+      </p>
+    </div>
+  </div>
+</div>
+
 
 <script src="../assets/admin_listings.js"></script>
 </body>

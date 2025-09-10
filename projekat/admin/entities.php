@@ -53,6 +53,7 @@ if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
     <div class="row" style="gap:.5rem;align-items:center;margin-bottom:.5rem;">
       <button class="btn primary" id="newUserBtn">+ New User</button>
     </div>
+    <div class="table-responsive">
     <table>
       <thead>
       <tr>
@@ -66,6 +67,7 @@ if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
       </thead>
       <tbody id="usersRows"></tbody>
     </table>
+    </div>
   </section>
 
   <!-- COMPANIES -->
@@ -73,6 +75,7 @@ if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
     <div class="row" style="gap:.5rem;align-items:center;margin-bottom:.5rem;">
       <button class="btn primary" id="newCompanyBtn">+ New Company</button>
     </div>
+    <div class="table-responsive">
     <table>
       <thead>
       <tr>
@@ -88,6 +91,7 @@ if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
       </thead>
       <tbody id="companiesRows"></tbody>
     </table>
+    </div>
   </section>
 </main>
 

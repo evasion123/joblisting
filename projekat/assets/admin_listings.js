@@ -13,6 +13,26 @@ const rowsEl = document.getElementById("rows");
 const filterCategory = document.getElementById("filterCategory");
 const searchBox = document.getElementById("searchBox");
 
+const manageCatsBtn = document.getElementById("manageCatsBtn");
+const catsModal = document.getElementById("catsModal");
+const catsList = document.getElementById("catsList");
+const catForm = document.getElementById("catForm");
+const catCloseBtn = document.getElementById("catCloseBtn");
+
+function openCatsModal() {
+  catsModal.classList.add("open");
+}
+function closeCatsModal() {
+  catsModal.classList.remove("open");
+  catForm.reset();
+}
+
+manageCatsBtn?.addEventListener("click", async () => {
+  openCatsModal();
+  await renderCategoriesUI(); // load fresh
+});
+catCloseBtn?.addEventListener("click", closeCatsModal);
+
 function escapeHtml(s) {
   return String(s ?? "").replace(
     /[&<>"']/g,
@@ -21,6 +41,73 @@ function escapeHtml(s) {
         c
       ])
   );
+}
+
+catForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = new FormData(catForm).get("name").trim();
+  if (!name) return;
+  try {
+    await createCategory(name);
+    catForm.reset();
+    await renderCategoriesUI();
+    await loadCategories(); // refresh selects (filter + modal)
+  } catch (e) {
+    alert(e.message);
+  }
+});
+
+async function renderCategoriesUI() {
+  const j = await api("categories.php"); // already exists
+  const cats = j.categories || [];
+  catsList.innerHTML = "";
+  if (!cats.length) {
+    catsList.innerHTML = '<p class="muted">No categories yet.</p>';
+    return;
+  }
+  const frag = document.createDocumentFragment();
+  cats.forEach((c) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="row between center">
+        <div><strong>${escapeHtml(c.name)}</strong><br><span class="muted">#${
+      c.id
+    }</span></div>
+        <button class="btn danger" data-del="${c.id}">Delete</button>
+      </div>
+    `;
+    card.querySelector("[data-del]").addEventListener("click", async () => {
+      if (!confirm(`Delete category "${c.name}"?`)) return;
+      try {
+        await deleteCategory(c.id);
+        await renderCategoriesUI(); // refresh modal list
+        await loadCategories(); // refresh dropdowns
+        await loadJobs(); // in case filter or job rows depend on it
+      } catch (e) {
+        alert(e.message);
+      }
+    });
+    frag.appendChild(card);
+  });
+  catsList.appendChild(frag);
+}
+
+async function createCategory(name) {
+  const j = await api("category_create.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
+  return j.category; // {id, name}
+}
+
+async function deleteCategory(category_id) {
+  return api("category_delete.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ category_id }),
+  });
 }
 
 async function loadCategories() {
