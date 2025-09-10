@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../init.php';
-if (!isset($_SESSION['company'])) { header('Location: /projekat/company/login.php'); exit; }
+if (!isset($_SESSION['company'])) { header('Location: login.php'); exit; }
 ?>
 <!DOCTYPE html>
 <html lang="en">

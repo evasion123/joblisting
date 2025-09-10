@@ -22,7 +22,7 @@ if (isset($_SESSION['admin'])) { header('Location: listings.php'); exit; }
       <label>Password <input type="password" name="password" required minlength="6"></label>
       <button class="btn primary" type="submit">Login</button>
       <p class="muted" style="margin-top:.5rem;">Default: <code>admin@example.com</code> / <code>change_me_123</code></p>
-      <a href="../index.php">Back to main page</a>
+      <a href="/">Back to main page</a>
       <div id="msg" class="muted" style="margin-top:.5rem;"></div>
     </form>
   </main>

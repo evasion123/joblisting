@@ -2,5 +2,5 @@
 // admin/logout.php
 require_once __DIR__ . '/../init.php';
 unset($_SESSION['admin']);
-header('Location: /projekat/index.php');
+header('Location: /');
 exit;

@@ -1,7 +1,7 @@
 <?php
 // Place under /admin/listings.php
 require_once __DIR__ . '/../init.php';
-if (!isset($_SESSION['admin'])) { header('Location: /projekat/admin/login.php'); exit; }
+if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
 ?>
 <!DOCTYPE html>
 <html lang="en">

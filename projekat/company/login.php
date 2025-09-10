@@ -46,5 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <p class="muted">New company? <a href="register.php">Register</a></p>
     </form>
   </main>
+  
 </body>
 </html>
