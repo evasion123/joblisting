@@ -87,9 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form'] ?? '') === 'passwor
   <div class="container row between center">
     <a class="brand" href="index.php">💼 Job Listings</a>
     <nav>
-      <span class="hello">Hi, <?php echo htmlspecialchars($_SESSION['user']['name']); ?></span>
-      <a class="btn" href="index.php">Listings</a>
-      <a class="btn" href="logout.php">Logout</a>
+        <span class="hello">Hi, <?php echo htmlspecialchars($_SESSION['user']['name']); ?></span>
+        <a class="btn" href="index.php">Listings</a>
+        <button class="btn" id="logoutBtn" type="button">Logout</button>
     </nav>
   </div>
 </header>
@@ -144,6 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['form'] ?? '') === 'passwor
     <h3 style="margin-top:0;">Account details</h3>
     <p class="muted">Member since: <?php echo htmlspecialchars($user['created_at']); ?></p>
   </div>
-</main>
-</body>
-</html>
+  </main>
+  <script>
+    window.LOGOUT_URL = 'api/logout.php';
+  </script>
+  <script src="assets/logout.js"></script>
+  </body>
+  </html>

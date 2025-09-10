@@ -15,8 +15,8 @@ if (!isset($_SESSION['company'])) { header('Location: login.php'); exit; }
     <div class="container row between center">
       <a class="brand" href="../index.php">💼 Job Listings</a>
       <nav>
-        <span class="hello">Company: <?php echo htmlspecialchars($_SESSION['company']['name']); ?></span>
-        <a class="btn" href="../logout.php">Logout</a>
+          <span class="hello">Company: <?php echo htmlspecialchars($_SESSION['company']['name']); ?></span>
+          <button class="btn" id="logoutBtn" type="button">Logout</button>
       </nav>
     </div>
   </header>
@@ -45,6 +45,10 @@ if (!isset($_SESSION['company'])) { header('Location: login.php'); exit; }
     </section>
   </main>
 
-  <script src="../assets/company.js"></script>
-</body>
-</html>
+    <script src="../assets/company.js"></script>
+    <script>
+      window.LOGOUT_URL = '../api/logout.php';
+    </script>
+    <script src="../assets/logout.js"></script>
+  </body>
+  </html>

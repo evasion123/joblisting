@@ -2,39 +2,7 @@
 require_once __DIR__ . '/../init.php';
 require_once __DIR__ . '/../lib/ensure_companies.php';
 ensure_companies_table(get_pdo());
-
-$error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $name = trim($_POST['name'] ?? '');
-  $email = trim($_POST['email'] ?? '');
-  $password = $_POST['password'] ?? '';
-  $password2 = $_POST['password2'] ?? '';
-  $website = trim($_POST['website'] ?? '');
-  $address = trim($_POST['address'] ?? '');
-  $about = trim($_POST['about'] ?? '');
-
-  if ($name === '' || $email === '' || $password === '' || $password2 === '') {
-    $error = 'Required fields: name, email, password.';
-  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $error = 'Invalid email format.';
-  } elseif ($password !== $password2) {
-    $error = 'Passwords do not match.';
-  } else {
-    $pdo = get_pdo();
-    $st = $pdo->prepare('SELECT id FROM companies WHERE email = ? OR name = ? LIMIT 1');
-    $st->execute([$email, $name]);
-    if ($st->fetch()) {
-      $error = 'Company email or name already registered.';
-    } else {
-      $hash = password_hash($password, PASSWORD_DEFAULT);
-      $ins = $pdo->prepare('INSERT INTO companies (name,email,password_hash,website,address,about) VALUES (?,?,?,?,?,?)');
-      $ins->execute([$name,$email,$hash,$website,$address,$about]);
-      $_SESSION['company'] = ['id' => $pdo->lastInsertId(), 'name' => $name, 'email' => $email];
-      header('Location: index.php');
-      exit;
-    }
-  }
-}
+if (isset($_SESSION['company'])) { header('Location: index.php'); exit; }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <main class="container auth">
     <h1>Register Company</h1>
-    <?php if ($error): ?><div class="alert error"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>
-    <form method="post" class="card">
+    <form id="registerForm" class="card">
       <label>Company Name
         <input type="text" name="name" required/>
       </label>
@@ -72,7 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </label>
       <button class="btn primary" type="submit">Create Company</button>
       <p class="muted">Already registered? <a href="login.php">Login</a></p>
+      <div id="msg" class="muted" style="margin-top:.5rem;"></div>
     </form>
   </main>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const res = await fetch('../api/company/register.php', { method: 'POST', body: fd });
+      const j = await res.json();
+      const msg = document.getElementById('msg');
+      if (j.ok) { msg.textContent = 'Company created! Redirecting…'; location.href = 'index.php'; }
+      else { msg.textContent = j.error || 'Registration failed'; }
+    });
+  </script>
 </body>
 </html>

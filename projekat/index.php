@@ -14,8 +14,8 @@
       <nav>
         <?php if (isset($_SESSION['user'])): ?>
           <span class="hello">Hi, <?php echo htmlspecialchars($_SESSION['user']['name']); ?></span>
-          <a class="btn" href="profile.php">Profile</a>
-          <a class="btn" href="logout.php">Logout</a>
+            <a class="btn" href="profile.php">Profile</a>
+            <button class="btn" id="logoutBtn" type="button">Logout</button>
         <?php else: ?>
           <a class="btn" href="admin/login.php">Admin</a>
           <a class="btn" href="company/login.php">Company Login</a>
@@ -43,9 +43,11 @@
     <div class="container">placeholder footer</div>
   </footer>
 
-  <script>
-    window.IS_LOGGED_IN = <?php echo isset($_SESSION['user']) ? 'true' : 'false'; ?>;
-  </script>
-  <script src="assets/main.js"></script>
-</body>
+    <script>
+      window.IS_LOGGED_IN = <?php echo isset($_SESSION['user']) ? 'true' : 'false'; ?>;
+      window.LOGOUT_URL = 'api/logout.php';
+    </script>
+    <script src="assets/main.js"></script>
+    <script src="assets/logout.js"></script>
+  </body>
 </html>

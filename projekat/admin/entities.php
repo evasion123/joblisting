@@ -33,8 +33,8 @@ if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
     <a class="brand" href="listings.php">🛠 Admin</a>
     <nav>
       <a class="btn" href="listings.php">Listings</a>
-      <a class="btn" href="entities.php">Users & Companies</a>
-      <a class="btn" href="logout.php">Logout</a>
+        <a class="btn" href="entities.php">Users & Companies</a>
+        <button class="btn" id="logoutBtn" type="button">Logout</button>
     </nav>
   </div>
 </header>
@@ -148,6 +148,10 @@ if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit; }
   </div>
 </div>
 
-<script src="../assets/admin_entities.js"></script>
-</body>
-</html>
+  <script src="../assets/admin_entities.js"></script>
+  <script>
+    window.LOGOUT_URL = '../api/logout.php';
+  </script>
+  <script src="../assets/logout.js"></script>
+  </body>
+  </html>
