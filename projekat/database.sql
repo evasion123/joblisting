@@ -1,8 +1,8 @@
 -- Create database and tables
-CREATE DATABASE IF NOT EXISTS job_listings
+CREATE DATABASE IF NOT EXISTS evasion
   DEFAULT CHARACTER SET utf8mb4
   DEFAULT COLLATE utf8mb4_unicode_ci;
-USE job_listings;
+USE evasion;
 
 -- Users who can apply
 CREATE TABLE IF NOT EXISTS users (
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS admins (
       email VARCHAR(190) NOT NULL UNIQUE,
       password_hash VARCHAR(255) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Seed categories
 INSERT IGNORE INTO categories (name) VALUES
