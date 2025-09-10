@@ -1,5 +1,5 @@
 <?php
-// Ensure the companies table exists (idempotent).
+// Ensure the companies table exists
 function ensure_companies_table(PDO $pdo) {
   $pdo->exec("CREATE TABLE IF NOT EXISTS companies (
       id INT AUTO_INCREMENT PRIMARY KEY,
