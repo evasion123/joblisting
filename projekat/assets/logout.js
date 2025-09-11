@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       await fetch(url, { method: 'POST' });
     } finally {
-      location.href = window.LOGOUT_REDIRECT || '/';
+      location.href = window.LOGOUT_REDIRECT || 'https://studcp.vts.su.ac.rs:10000/virtual-server/link.cgi/147.91.199.133/http://www.evasion.stud.vts.su.ac.rs/';
     }
   });
 });
