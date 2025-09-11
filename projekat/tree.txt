@@ -1,6 +1,12 @@
-﻿Folder PATH listing
+Folder PATH listing
 Volume serial number is E24B-1BE7
 C:.
+│   .env
+│   .gitattributes
+│   .gitignore
+│   .htaccess
+│   composer.json
+│   composer.lock
 │   config.php
 │   database.sql
 │   db.php
@@ -22,6 +28,9 @@ C:.
 │   │   apply.php
 │   │   categories.php
 │   │   listings.php
+│   │   login.php
+│   │   logout.php
+│   │   register.php
 │   │   
 │   ├───admin
 │   │       categories.php
@@ -42,18 +51,24 @@ C:.
 │   │       user_save.php
 │   │       _require_admin.php
 │   │       
-│   └───company
-│           applicants.php
-│           categories.php
-│           contact.php
-│           create_job.php
-│           delete_job.php
-│           my_jobs.php
+│   ├───company
+│   │       applicants.php
+│   │       categories.php
+│   │       contact.php
+│   │       create_job.php
+│   │       delete_job.php
+│   │       login.php
+│   │       my_jobs.php
+│   │       register.php
+│   │       
+│   └───user
+│           login.php
 │           
 ├───assets
 │       admin_entities.js
 │       admin_listings.js
 │       company.js
+│       logout.js
 │       main.js
 │       styles.css
 │       
@@ -63,9 +78,166 @@ C:.
 │       register.php
 │       
 │       
-└───lib
-        email.php
-        ensure_admins.php
-        ensure_companies.php
-        
-
+├───lib
+│       email.php
+│       ensure_admins.php
+│       ensure_companies.php
+│       
+└───vendor
+    │   autoload.php
+    │   
+    ├───composer
+    │       autoload_classmap.php
+    │       autoload_files.php
+    │       autoload_namespaces.php
+    │       autoload_psr4.php
+    │       autoload_real.php
+    │       autoload_static.php
+    │       ClassLoader.php
+    │       installed.json
+    │       installed.php
+    │       InstalledVersions.php
+    │       LICENSE
+    │       platform_check.php
+    │       
+    ├───graham-campbell
+    │   └───result-type
+    │       │   composer.json
+    │       │   LICENSE
+    │       │   
+    │       └───src
+    │               Error.php
+    │               Result.php
+    │               Success.php
+    │               
+    ├───phpmailer
+    │   └───phpmailer
+    │       │   COMMITMENT
+    │       │   composer.json
+    │       │   get_oauth_token.php
+    │       │   LICENSE
+    │       │   README.md
+    │       │   SECURITY.md
+    │       │   SMTPUTF8.md
+    │       │   VERSION
+    │       │   
+    │       ├───language
+    │       │       phpmailer.lang-af.php
+    │       │       phpmailer.lang-ar.php
+    │       │       phpmailer.lang-as.php
+    │       │       phpmailer.lang-az.php
+    │       │       phpmailer.lang-ba.php
+    │       │       phpmailer.lang-be.php
+    │       │       phpmailer.lang-bg.php
+    │       │       phpmailer.lang-bn.php
+    │       │       phpmailer.lang-ca.php
+    │       │       phpmailer.lang-cs.php
+    │       │       phpmailer.lang-da.php
+    │       │       phpmailer.lang-de.php
+    │       │       phpmailer.lang-el.php
+    │       │       phpmailer.lang-eo.php
+    │       │       phpmailer.lang-es.php
+    │       │       phpmailer.lang-et.php
+    │       │       phpmailer.lang-fa.php
+    │       │       phpmailer.lang-fi.php
+    │       │       phpmailer.lang-fo.php
+    │       │       phpmailer.lang-fr.php
+    │       │       phpmailer.lang-gl.php
+    │       │       phpmailer.lang-he.php
+    │       │       phpmailer.lang-hi.php
+    │       │       phpmailer.lang-hr.php
+    │       │       phpmailer.lang-hu.php
+    │       │       phpmailer.lang-hy.php
+    │       │       phpmailer.lang-id.php
+    │       │       phpmailer.lang-it.php
+    │       │       phpmailer.lang-ja.php
+    │       │       phpmailer.lang-ka.php
+    │       │       phpmailer.lang-ko.php
+    │       │       phpmailer.lang-ku.php
+    │       │       phpmailer.lang-lt.php
+    │       │       phpmailer.lang-lv.php
+    │       │       phpmailer.lang-mg.php
+    │       │       phpmailer.lang-mn.php
+    │       │       phpmailer.lang-ms.php
+    │       │       phpmailer.lang-nb.php
+    │       │       phpmailer.lang-nl.php
+    │       │       phpmailer.lang-pl.php
+    │       │       phpmailer.lang-pt.php
+    │       │       phpmailer.lang-pt_br.php
+    │       │       phpmailer.lang-ro.php
+    │       │       phpmailer.lang-ru.php
+    │       │       phpmailer.lang-si.php
+    │       │       phpmailer.lang-sk.php
+    │       │       phpmailer.lang-sl.php
+    │       │       phpmailer.lang-sr.php
+    │       │       phpmailer.lang-sr_latn.php
+    │       │       phpmailer.lang-sv.php
+    │       │       phpmailer.lang-tl.php
+    │       │       phpmailer.lang-tr.php
+    │       │       phpmailer.lang-uk.php
+    │       │       phpmailer.lang-ur.php
+    │       │       phpmailer.lang-vi.php
+    │       │       phpmailer.lang-zh.php
+    │       │       phpmailer.lang-zh_cn.php
+    │       │       
+    │       └───src
+    │               DSNConfigurator.php
+    │               Exception.php
+    │               OAuth.php
+    │               OAuthTokenProvider.php
+    │               PHPMailer.php
+    │               POP3.php
+    │               SMTP.php
+    │               
+    ├───phpoption
+    │   └───phpoption
+    │       │   composer.json
+    │       │   LICENSE
+    │       │   
+    │       └───src
+    │           └───PhpOption
+    │                   LazyOption.php
+    │                   None.php
+    │                   Option.php
+    │                   Some.php
+    │                   
+    └───symfony
+        ├───polyfill-ctype
+        │       bootstrap.php
+        │       bootstrap80.php
+        │       composer.json
+        │       Ctype.php
+        │       LICENSE
+        │       README.md
+        │       
+        ├───polyfill-mbstring
+        │   │   bootstrap.php
+        │   │   bootstrap80.php
+        │   │   composer.json
+        │   │   LICENSE
+        │   │   Mbstring.php
+        │   │   README.md
+        │   │   
+        │   └───Resources
+        │       └───unidata
+        │               caseFolding.php
+        │               lowerCase.php
+        │               titleCaseRegexp.php
+        │               upperCase.php
+        │               
+        └───polyfill-php80
+            │   bootstrap.php
+            │   composer.json
+            │   LICENSE
+            │   Php80.php
+            │   PhpToken.php
+            │   README.md
+            │   
+            └───Resources
+                └───stubs
+                        Attribute.php
+                        PhpToken.php
+                        Stringable.php
+                       UnhandledMatchError.php
+                       ValueError.php                   
+    
